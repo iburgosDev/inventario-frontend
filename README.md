@@ -1,16 +1,32 @@
-# React + Vite
+# Inventario Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dashboard web para gestión de inventario, construido con React y Vite. Consume la [Inventario API](https://github.com/iburgosDev/inventario-api) desarrollada con FastAPI.
 
-Currently, two official plugins are available:
+## Vista previa
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![Preview](preview.png)
 
-## React Compiler
+## Tecnologías
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 18
+- Vite
+- CSS personalizado (sin librerías de UI)
 
-## Expanding the ESLint configuration
+## Requisitos
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Node.js 18+
+- [Inventario API](https://github.com/iburgosDev/inventario-api) corriendo en `http://localhost:8000`
+
+## Instalación
+```bash
+npm install
+npm run dev
+```
+
+Abre http://localhost:5173 en el navegador.
+
+## Funcionalidades
+
+- Listar productos del inventario
+- Agregar producto nuevo
+- Eliminar producto
