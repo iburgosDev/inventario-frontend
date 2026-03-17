@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import "./App.css"
 
 const API = "http://127.0.0.1:8000"
 
@@ -8,10 +9,7 @@ function App() {
   const [precio, setPrecio] = useState("")
   const [stock, setStock] = useState("")
 
-  // Cargar productos al iniciar
-  useEffect(() => {
-    obtenerProductos()
-  }, [])
+  useEffect(() => { obtenerProductos() }, [])
 
   async function obtenerProductos() {
     const res = await fetch(`${API}/productos`)
@@ -30,9 +28,7 @@ function App() {
         stock: parseInt(stock)
       })
     })
-    setNombre("")
-    setPrecio("")
-    setStock("")
+    setNombre(""); setPrecio(""); setStock("")
     obtenerProductos()
   }
 
@@ -42,61 +38,44 @@ function App() {
   }
 
   return (
-    <div style={{ maxWidth: "700px", margin: "40px auto", fontFamily: "sans-serif" }}>
-      <h1>📦 Inventario</h1>
-
-      {/* Formulario */}
-      <div style={{ display: "flex", gap: "10px", marginBottom: "30px" }}>
-        <input
-          placeholder="Nombre"
-          value={nombre}
-          onChange={e => setNombre(e.target.value)}
-        />
-        <input
-          placeholder="Precio"
-          type="number"
-          value={precio}
-          onChange={e => setPrecio(e.target.value)}
-        />
-        <input
-          placeholder="Stock"
-          type="number"
-          value={stock}
-          onChange={e => setStock(e.target.value)}
-        />
-        <button onClick={agregarProducto}>Agregar</button>
+    <div className="app">
+      <div className="header">
+        <p className="header-label">Sistema de gestión</p>
+        <h1>Inventario</h1>
+        <p className="header-count"><span>{productos.length}</span> productos registrados</p>
       </div>
 
-      {/* Lista de productos */}
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr style={{ borderBottom: "2px solid #ccc", textAlign: "left" }}>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {productos.map(p => (
-            <tr key={p.id} style={{ borderBottom: "1px solid #eee" }}>
-              <td>{p.id}</td>
-              <td>{p.nombre}</td>
-              <td>${p.precio}</td>
-              <td>{p.stock}</td>
-              <td>
-                <button
-                  onClick={() => eliminarProducto(p.id)}
-                  style={{ color: "red", cursor: "pointer" }}
-                >
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="form-section">
+        <p className="form-label">Agregar producto</p>
+        <div className="form-row">
+          <input placeholder="Nombre" value={nombre} onChange={e => setNombre(e.target.value)} />
+          <input placeholder="Precio" type="number" value={precio} onChange={e => setPrecio(e.target.value)} />
+          <input placeholder="Stock" type="number" value={stock} onChange={e => setStock(e.target.value)} />
+          <button className="btn-add" onClick={agregarProducto}>+ Agregar</button>
+        </div>
+      </div>
+
+      <div className="table-section">
+        <div className="table-header">
+          <span>ID</span>
+          <span>Nombre</span>
+          <span>Precio</span>
+          <span>Stock</span>
+          <span></span>
+        </div>
+        {productos.length === 0
+          ? <div className="empty">— sin productos —</div>
+          : productos.map(p => (
+            <div className="product-row" key={p.id}>
+              <span className="product-id">#{p.id}</span>
+              <span className="product-name">{p.nombre}</span>
+              <span className="product-price">${p.precio}</span>
+              <span className="product-stock">{p.stock} u.</span>
+              <button className="btn-delete" onClick={() => eliminarProducto(p.id)}>DEL</button>
+            </div>
+          ))
+        }
+      </div>
     </div>
   )
 }
